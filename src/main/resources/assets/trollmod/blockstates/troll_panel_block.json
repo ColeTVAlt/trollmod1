@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "trollmod:block/troll_panel_block"
+    }
+  }
+}
