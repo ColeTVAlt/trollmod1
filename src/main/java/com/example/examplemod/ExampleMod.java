@@ -1,6 +1,8 @@
 package com.example.examplemod;
 
+import com.example.examplemod.registries.ModBlockEntities;
 import com.example.examplemod.registries.ModBlocks;
+import com.example.examplemod.registries.ModMenus;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -48,6 +50,8 @@ public class ExampleMod
 
         // Register the Deferred Register to the mod event bus so blocks get registered
         ModBlocks.BLOCKS.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
+        ModMenus.MENU_TYPES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
