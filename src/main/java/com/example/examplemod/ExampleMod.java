@@ -1,5 +1,6 @@
 package com.example.examplemod;
 
+import com.example.examplemod.client.ClientHandler;
 import com.example.examplemod.registries.ModBlockEntities;
 import com.example.examplemod.registries.ModBlocks;
 import com.example.examplemod.registries.ModMenus;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -61,6 +63,9 @@ public class ExampleMod
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+
+        //DistExecutor.safeRunWhenOn(Dist.CLIENT () -> ClientHandler::register);
+        ClientHandler.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -102,4 +107,6 @@ public class ExampleMod
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
+
+
 }

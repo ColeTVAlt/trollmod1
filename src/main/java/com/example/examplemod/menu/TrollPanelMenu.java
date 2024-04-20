@@ -6,21 +6,20 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 
 public class TrollPanelMenu extends AbstractContainerMenu {
 
-    private final TrollPanelBlockEntity blockEntity;
-    public TrollPanelMenu(int windowId, Inventory playerInv, FriendlyByteBuf extraData) {
-        this(windowId, playerInv, (TrollPanelBlockEntity) playerInv.player.level().getBlockEntity(extraData.readBlockPos()));
-
-    }
-
-    public TrollPanelMenu(int windowId, Inventory playerInv, TrollPanelBlockEntity blockEntity) {
+    public TrollPanelMenu(int windowId) {
         super(ModMenus.TROLL_PANEL_MENU.get(), windowId);
-
-        this.blockEntity = blockEntity;
     }
+
+    public TrollPanelMenu(int windowId, Inventory playerInv, FriendlyByteBuf extraData) {
+        super(ModMenus.TROLL_PANEL_MENU.get(), windowId);
+    }
+
+
 
     @Override
     public ItemStack quickMoveStack(Player player, int clickedSlot) {

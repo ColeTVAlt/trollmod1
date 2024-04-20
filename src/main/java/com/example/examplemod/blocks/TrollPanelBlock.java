@@ -8,11 +8,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.CraftingMenu;
 import net.minecraft.world.level.Level;
@@ -44,11 +47,13 @@ public class TrollPanelBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        DistExecutor.unsafeRunForDist(Dist.CLIENT, () -> () -> Minecraft.getInstance().setScreen(new TrollPanelBlock(blockPos)));
+        if (blockEntity instanceof TrollPanelBlockEntity entity) {
+            entity.use(blockState, level, blockPos, player, hand, hitResult);
+        }
 
 
         return InteractionResult.CONSUME;
@@ -57,7 +62,7 @@ public class TrollPanelBlock extends Block implements EntityBlock {
     @Override
     public MenuProvider getMenuProvider(BlockState p_52240_, Level p_52241_, BlockPos p_52242_) {
         return new SimpleMenuProvider((p_52229_, p_52230_, p_52231_) -> {
-            return new TrollPanelMenu(p_52229_, p_52230_, (FriendlyByteBuf) ContainerLevelAccess.create(p_52241_, p_52242_));
+            return new TrollPanelMenu(p_52229_);
         }, CONTAINER_TITLE);
     }
 }
