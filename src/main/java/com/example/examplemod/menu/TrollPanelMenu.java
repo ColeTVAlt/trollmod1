@@ -29,7 +29,7 @@ public class TrollPanelMenu extends AbstractContainerMenu {
         if (slot.hasItem()) {
             var clickedStack = slot.getItem();
             leftOver = clickedStack.copy();
-
+///
             if (clickedSlot == 0) {
                 if (!moveItemStackTo(clickedStack, 1, 37, true)) {
                     return ItemStack.EMPTY;
